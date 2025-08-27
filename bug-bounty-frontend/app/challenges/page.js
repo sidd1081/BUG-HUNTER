@@ -1,6 +1,6 @@
 "use client";
 export const dynamic = "force-dynamic";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -31,7 +31,26 @@ const FloatingBug = ({ delay = 0 }) => {
   );
 };
 
-export default function Challenge() {
+// Loading component for Suspense fallback
+const LoadingChallenge = () => (
+  <div
+    className="min-h-screen flex items-center justify-center"
+    style={{
+      background:
+        "radial-gradient(circle at 20% 50%, #1a0033 0%, #000000 25%, #0d0d0d 50%, #000000 100%)",
+    }}
+  >
+    <div className="flex flex-col items-center gap-4">
+      <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-500 border-t-transparent"></div>
+      <p className="text-2xl text-purple-400 font-bold animate-pulse">
+        Loading challenge...
+      </p>
+    </div>
+  </div>
+);
+
+// Main challenge component that uses useSearchParams
+function ChallengeContent() {
   const [challenge, setChallenge] = useState(null);
   const [user, setUser] = useState(null);
   const [copied, setCopied] = useState(false);
@@ -652,5 +671,14 @@ export default function Challenge() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Main exported component with Suspense wrapper
+export default function Challenge() {
+  return (
+    <Suspense fallback={<LoadingChallenge />}>
+      <ChallengeContent />
+    </Suspense>
   );
 }
