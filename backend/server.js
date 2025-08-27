@@ -16,7 +16,7 @@ connectDB();
 const app=express();
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:3000", 
+  origin: "http://localhost:3000","https://bug-hunter-1-b9vn.onrender.com/", 
   credentials: true                
 }));
 
