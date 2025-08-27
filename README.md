@@ -79,7 +79,7 @@ Contributions, issues and feature requests are welcome! Feel free to check the i
 
 ## Contact
 
-For inquiries or feedback, please reach out to your.email@example.com
+For inquiries or feedback, please reach out to siddhant9696gupta761@gmail.com
 
 ---
 
