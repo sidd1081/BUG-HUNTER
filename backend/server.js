@@ -15,10 +15,16 @@ connectDB();
 
 const app=express();
 app.use(express.json());
-app.use(cors({
-  origin: ["http://localhost:3000","https://bug-hunter-1-b9vn.onrender.com"], 
-  credentials: true                
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://bug-hunter-1-b9vn.onrender.com",
+      "https://bug-hunter-jrcs.onrender.com",
+    ],
+    credentials: true,
+  })
+);
 
 app.get('/api/ping', (req, res) => {
   res.send('pong');

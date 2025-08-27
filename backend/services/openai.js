@@ -36,7 +36,7 @@ const generateBuggyChallenge = async (
 
     return JSON.parse(text);
   } catch (err) {
-    console.error("Failed to generate or parse AI response:", err.message);
+    console.error("Failed to generate or parse AI response:", err);
     return null;
   }
 };
