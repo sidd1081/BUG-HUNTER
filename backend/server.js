@@ -19,7 +19,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "bug-hunter-five.vercel.app",
+      "https://bug-hunter-five.vercel.app",
       "https://bug-hunter-jrcs.onrender.com",
     ],
     credentials: true,
