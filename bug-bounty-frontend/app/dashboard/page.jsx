@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Bug, Mail, LogOut } from "lucide-react";
+import { apiFetch } from "../../lib/api";
 
 const LANGUAGES = [
   { label: "JavaScript", value: "javascript" },
@@ -80,13 +81,9 @@ export default function Dashboard() {
     if (!token) {
       router.push("/login");
     } else {
-      fetch("http://localhost:5000/api/profile", {
+      apiFetch("/api/profile", {
         headers: { Authorization: `Bearer ${token}` },
       })
-        .then((res) => {
-          if (!res.ok) throw new Error("Failed to fetch profile");
-          return res.json();
-        })
         .then((data) => setUser(data.user))
         .catch(() => {
           localStorage.removeItem("token");
@@ -228,8 +225,7 @@ export default function Dashboard() {
                   Streak
                 </div>
                 <div className="text-lg text-white font-bold flex items-center justify-center gap-2">
-                  {user.streak || 0}
-                  <span className="text-2xl">🔥</span>
+                  {user.streak || 0} <span className="text-2xl">🔥</span>
                 </div>
               </div>
             </div>

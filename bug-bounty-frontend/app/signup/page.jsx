@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { apiFetch } from "../../lib/api";
 import {
   Card,
   CardContent,
@@ -13,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Bug, User, Mail, Lock } from "lucide-react";
-
 
 const FloatingBug = ({ delay = 0 }) => {
   return (
@@ -45,16 +45,14 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/users/register", {
+      const data = await apiFetch("/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.message || "Signup failed");
+      if (!data || data.error || data.message === "Signup failed") {
+        alert(data?.message || "Signup failed");
       } else {
         alert("Signup successful! Please login.");
         window.location.href = "/login";
@@ -96,21 +94,18 @@ const Signup = () => {
         }
       `}</style>
 
-      {/* Floating Bugs */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(15)].map((_, i) => (
           <FloatingBug key={i} delay={i * 0.5} />
         ))}
       </div>
 
-      {/* Background corner glows */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-purple-900/5 to-transparent rounded-full blur-3xl"></div>
       </div>
 
-      {/* Main Signup Card */}
       <div className="relative z-10 w-full max-w-md px-6">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-4 mb-6">
@@ -128,7 +123,6 @@ const Signup = () => {
           </p>
         </div>
 
-        {/* Changed this line - now uses bg-black/90 and inline backdropFilter like Login page */}
         <Card
           className="bg-black/90 shadow-2xl border-2 border-purple-500/20 rounded-3xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-purple-400/30"
           style={{ backdropFilter: "blur(20px)" }}
@@ -242,7 +236,6 @@ const Signup = () => {
           </CardFooter>
         </Card>
 
-        {/* Footer */}
         <div className="text-center mt-8">
           <p className="text-gray-500 text-xs font-mono uppercase tracking-widest">
             Secure • Protected • Anonymous
@@ -250,7 +243,6 @@ const Signup = () => {
         </div>
       </div>
 
-      {/* Animated Corner Effects */}
       <div className="absolute top-0 left-0 w-32 h-32 border-l-2 border-t-2 border-purple-500/30 rounded-tl-3xl pointer-events-none"></div>
       <div className="absolute top-0 right-0 w-32 h-32 border-r-2 border-t-2 border-pink-500/30 rounded-tr-3xl pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-32 h-32 border-l-2 border-b-2 border-pink-500/30 rounded-bl-3xl pointer-events-none"></div>
@@ -260,3 +252,4 @@ const Signup = () => {
 };
 
 export default Signup;
+  
