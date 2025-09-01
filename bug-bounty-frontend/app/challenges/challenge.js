@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Copy, Play, Shield, Bug, Trophy, Target, LogOut } from "lucide-react";
+import { apiFetch } from "../../lib/api";
 
 const xpMap = {
   easy: 50,
@@ -51,9 +52,8 @@ export default function Challenge() {
   const fetchChallenge = useCallback(async () => {
     if (!language || !difficulty) return;
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/challenges/generate?language=${language}&difficulty=${difficulty}`
-      );
+      const res = await apiFetch(
+        `/api/challenges/generate?language=${language}&difficulty=${difficulty}`);
       const data = await res.json();
       setChallenge(data);
       setUserCode(data.buggyCode || "");
@@ -64,6 +64,12 @@ export default function Challenge() {
     }
   }, [language, difficulty]);
 
+
+
+
+
+
+
   useEffect(() => {
     fetchChallenge();
   }, [fetchChallenge]);
@@ -73,7 +79,7 @@ export default function Challenge() {
       const token = localStorage.getItem("token");
       if (!token) return;
       try {
-        const res = await fetch("http://localhost:5000/api/profile", {
+        const res = await apiFetch("/api/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Failed to fetch profile");
@@ -102,7 +108,7 @@ export default function Challenge() {
     setRunningCode(true);
     setOutput("");
     try {
-      const res = await fetch("http://localhost:5000/api/code/run", {
+      const res = await apiFetch("/api/code/run", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code: userCode, language }),
@@ -150,7 +156,7 @@ export default function Challenge() {
     setSubmitResult(null);
 
     try {
-      const res = await fetch("http://localhost:5000/api/valid/validate", {
+      const res = await apiFetch("/api/valid/validate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -166,8 +172,8 @@ export default function Challenge() {
         const token = localStorage.getItem("token");
         if (token && xpToAdd > 0) {
           try {
-            const xpRes = await fetch(
-              "http://localhost:5000/api/users/add-xp",
+            const xpRes = await apiFetch(
+              "/api/users/add-xp",
               {
                 method: "POST",
                 headers: {
