@@ -74,23 +74,22 @@ export default function Challenge() {
     fetchChallenge();
   }, [fetchChallenge]);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) return;
-      try {
-        const res = await apiFetch("/api/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (!res.ok) throw new Error("Failed to fetch profile");
-        const data = await res.json();
-        setUser(data.user);
-      } catch (e) {
-        console.error("Failed to fetch user", e);
-      }
-    };
-    fetchUser();
-  }, []);
+useEffect(() => {
+  const fetchUser = async () => {
+    const token = localStorage.getItem("token");
+    console.log("Token:", token);
+    if (!token) return;
+    try {
+      const data = await apiFetch("/api/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUser(data.user);
+    } catch (e) {
+      console.error("Failed to fetch user", e);
+    }
+  };
+  fetchUser();
+}, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
