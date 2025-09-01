@@ -1,7 +1,7 @@
-// utils/api.js
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function apiFetch(endpoint, options = {}) {
+  console.log(API_URL);
   const res = await fetch(`${API_URL}${endpoint}`, {
     headers: {
       "Content-Type": "application/json",

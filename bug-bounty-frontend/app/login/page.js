@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { apiFetch } from "../../lib/api";
 import {
   Card,
@@ -38,11 +39,13 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
+     
     try {
       // Only pass the endpoint, apiFetch already prepends the base URL
       const data = await apiFetch("/api/users/login", {
@@ -55,10 +58,9 @@ const Login = () => {
       if (data.error) {
         alert(data.message || "Login failed");
       } else {
-        // Store token in sessionStorage (or in-memory)
-        window.sessionStorage?.setItem("token", data.token) ||
-          (window.userToken = data.token);
-        window.location.href = "/dashboard";
+       window.localStorage?.setItem("token", data.token) ||
+         (window.userToken = data.token);
+        router.push("/dashboard");
       }
     } catch (error) {
       console.error(error);
