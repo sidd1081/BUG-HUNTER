@@ -52,9 +52,8 @@ export default function Challenge() {
   const fetchChallenge = useCallback(async () => {
     if (!language || !difficulty) return;
     try {
-      const res = await apiFetch(
+      const data = await apiFetch(
         `/api/challenges/generate?language=${language}&difficulty=${difficulty}`);
-      const data = await res.json();
       setChallenge(data);
       setUserCode(data.buggyCode || "");
       setOutput("");
@@ -107,12 +106,11 @@ useEffect(() => {
     setRunningCode(true);
     setOutput("");
     try {
-      const res = await apiFetch("/api/code/run", {
+      const data = await apiFetch("/api/code/run", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code: userCode, language }),
       });
-      const data = await res.json();
       setOutput(data.output || "No output returned.");
     } catch {
       setOutput("Error running code.");
@@ -155,7 +153,7 @@ useEffect(() => {
     setSubmitResult(null);
 
     try {
-      const res = await apiFetch("/api/valid/validate", {
+      const data = await apiFetch("/api/valid/validate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -164,7 +162,6 @@ useEffect(() => {
           language,
         }),
       });
-      const data = await res.json();
 
       if (data.success) {
         const xpToAdd = xpMap[difficulty?.toLowerCase()] || 0;
