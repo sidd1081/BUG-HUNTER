@@ -76,7 +76,6 @@ export default function Challenge() {
 useEffect(() => {
   const fetchUser = async () => {
     const token = localStorage.getItem("token");
-    console.log("Token:", token);
     if (!token) return;
     try {
       const data = await apiFetch("/api/profile", {
