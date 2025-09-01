@@ -83,7 +83,6 @@ useEffect(() => {
       const data = await apiFetch("/api/profile", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      // data is already parsed JSON response
       setUser(data.user);
     } catch (e) {
       console.error("Failed to fetch user", e);
