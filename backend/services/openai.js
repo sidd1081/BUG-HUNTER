@@ -3,8 +3,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const client = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENAI_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 const generateBuggyChallenge = async (
@@ -27,8 +27,13 @@ const generateBuggyChallenge = async (
 
   try {
     const response = await client.chat.completions.create({
-      model: "deepseek/deepseek-r1:free",
+      model: "openai/gpt-oss-120b",
       messages: [{ role: "user", content: prompt }],
+      temperature: 1,
+      max_completion_tokens: 8192,
+      top_p: 1,
+      reasoning_effort: "medium",
+      response_format: { type: "json_object" },
     });
 
     let text = response.choices[0].message.content;

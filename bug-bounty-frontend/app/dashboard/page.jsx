@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Bug, Mail, LogOut } from "lucide-react";
+import { Bug, LogOut } from "lucide-react";
 import { apiFetch } from "../../lib/api";
 
 const LANGUAGES = [
@@ -371,25 +371,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="flex items-center gap-3 text-gray-300">
-              <Mail
-                className="text-purple-400"
-                size={20}
-                style={{
-                  filter: "drop-shadow(0 0 8px #8000ff)",
-                }}
-              />
-              <span className="text-sm font-medium">Contact me at:</span>
-              <a
-                href="mailto:siddhant9696gupta761@gmail.com"
-                className="text-purple-300 hover:text-purple-200 font-semibold transition-colors duration-300 hover:glow-text"
-                style={{
-                  textShadow: "0 0 10px rgba(167, 139, 250, 0.5)",
-                }}
-              >
-                siddhant9696gupta761@gmail.com
-              </a>
-            </div>
           </div>
 
           <div className="mt-6 pt-4 border-t border-gray-700/50 text-center">
