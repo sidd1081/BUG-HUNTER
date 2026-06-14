@@ -1,8 +1,8 @@
 const OpenAI = require("openai");
 
 const openai = new OpenAI({
-      baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENAI_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 exports.validateUserSolution = async (req, res) => {
@@ -31,9 +31,11 @@ If not, reply with a brief explanation of the mistakes or what needs to be fixed
 `;
 
     const response = await openai.chat.completions.create({
-      model: "deepseek/deepseek-r1:free",
+      model: "openai/gpt-oss-120b",
       messages: [{ role: "user", content: prompt }],
       temperature: 0,
+      max_completion_tokens: 8192,
+      reasoning_effort: "medium",
     });
 
     const aiMessage = response.choices[0].message.content.trim();
