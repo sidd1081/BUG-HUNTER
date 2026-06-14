@@ -34,8 +34,8 @@ If not, reply with a brief explanation of the mistakes or what needs to be fixed
       model: "openai/gpt-oss-120b",
       messages: [{ role: "user", content: prompt }],
       temperature: 0,
-      max_completion_tokens: 8192,
-      reasoning_effort: "medium",
+      max_completion_tokens: 3000,
+      reasoning_effort: "low",
     });
 
     const aiMessage = response.choices[0].message.content.trim();

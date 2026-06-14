@@ -30,9 +30,9 @@ const generateBuggyChallenge = async (
       model: "openai/gpt-oss-120b",
       messages: [{ role: "user", content: prompt }],
       temperature: 1,
-      max_completion_tokens: 8192,
+      max_completion_tokens: 6000,
       top_p: 1,
-      reasoning_effort: "medium",
+      reasoning_effort: "low",
       response_format: { type: "json_object" },
     });
 
