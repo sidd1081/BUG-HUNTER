@@ -31,11 +31,10 @@ If not, reply with a brief explanation of the mistakes or what needs to be fixed
 `;
 
     const response = await openai.chat.completions.create({
-      model: "openai/gpt-oss-120b",
+      model: "llama-3.3-70b-versatile",
       messages: [{ role: "user", content: prompt }],
       temperature: 0,
       max_completion_tokens: 3000,
-      reasoning_effort: "low",
     });
 
     const aiMessage = response.choices[0].message.content.trim();

@@ -27,12 +27,11 @@ const generateBuggyChallenge = async (
 
   try {
     const response = await client.chat.completions.create({
-      model: "openai/gpt-oss-120b",
+      model: "llama-3.3-70b-versatile",
       messages: [{ role: "user", content: prompt }],
       temperature: 1,
       max_completion_tokens: 6000,
       top_p: 1,
-      reasoning_effort: "low",
       response_format: { type: "json_object" },
     });
 
